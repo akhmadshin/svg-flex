@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# svg-flex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A library that lets you use flexbox for svg images
 
-Currently, two official plugins are available:
+### Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```sh
+yarn add svg-flex
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```sh
+npm i svg-flex
+```
+
+### Example
+```angular2html
+import { SvgFlexContainer, SvgFlex } from 'svg-flex';
+
+<SvgFlexContainer gap={16} justify="start" direction="col">
+  <SvgFlex justify="between" direction="row" gap={8}>
+    <SomeSvg />
+    <SomeSvg />
+   </SvgFlex>
+  <SvgFlex justify="center" direction="row" gap={8}>
+    <SomeSvg />
+    <SomeSvg />
+    <SomeSvg />  
+   </SvgFlex>
+</SvgFlexContainer>
+```
+### Props
+
+```angular2html
+export interface SvgFlexProps {
+  justify?: FlexSvgJustify;
+  align?: FlexSvgAlign;
+  gap?: number;
+  direction?: FlexSvgDirection;
+  x?: number;
+  y?: number;
+  padding?: number;
+}
+
+export interface SvgFlexContainerProps extends SvgFlexProps {
+  onSizeCalculated?: (size: Size) => void;
+}
+
+export type FlexSvgAlign = 'center' | 'start' | 'end';
+export type FlexSvgDirection = 'row' | 'col';
+export type FlexSvgJustify = 'between' | 'center' | 'start' | 'end';
+
+export interface Size {
+  height: number;
+  width: number;
+}
+```
